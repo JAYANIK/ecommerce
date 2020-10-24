@@ -1,0 +1,21 @@
+{% extends 'header.html'%}
+{% block content %}
+        <title>Enter OTP</title>
+        <div class="topmsg">
+            {% if msg %}    
+            <i class="fa fa-bell" id="msgbox"> &nbsp;{{msg}}</i>        
+            {% endif%}
+        </div>
+        <div class="frmtitle"><h2 class="animated_h2">Verify It's You</h2></div>
+        <div class="signcontainer">
+            <form name="signup" method="POST" action="{% url 'verify_otp' %}">
+                {% csrf_token %}                
+                <input type="hidden" name="otp" value="{{otp}}"> 
+                <input type="hidden" name="email" value="{{email}}">
+                <input type="hidden" name="myvar" value="{{myvar}}">
+                <input type="text" class="signinput" name="uotp" id="uotp" placeholder="Enter OTP" required='true'><br>            
+                <button class="signsubmit" type="submit" name="submit" value="Verify OTP" >Verify OTP</button><br>
+                <a href="#">Resend OTP</a>
+            </form>            
+        </div>
+{% endblock %}

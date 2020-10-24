@@ -1,0 +1,32 @@
+{% extends 'seller_header.html'%}
+{% block content %}
+    <title>Product Details</title>
+    <div class="row">
+        <div class="product_msg">
+            {% if msg %}    
+                <i class="fa fa-bell" id="msgbox"> &nbsp;{{msg}}</i>        
+            {% endif%}
+        </div>
+
+       <div id="box" class="col-sm-3">
+           <div class="container">
+                 <div class="card" style="width:250px">
+                   <img class="card-img-top" src="{{product.product_image.url}}" alt="Card image" width=250px height=250px>
+                       <div class="card-body">
+                             <h4 class="card-title">{{product.product_name}}</h4>
+                             <h5 class="card-title">{{product.product_desc}}</h5>
+                             <p class="card-text">{{product.product_price}}</p>
+                             <p class="card-text">{{product.product_stock}}</p>
+                             {% if product.product_stock == 'available' %}
+                                <a href="{% url 'product_unavailable' pk=product.pk %}">Make Unavailable</a>
+                             {% else %}
+                                <a href="{% url 'product_unavailable' pk=product.pk %}">Make Available</a>
+                             {% endif %}
+                             <a href="{% url 'edit_product' pk=product.pk %}">Edit Product</a>                             
+                       </div>
+                 </div>	  
+           </div>
+       </div>        
+   </div>
+
+{% endblock %}

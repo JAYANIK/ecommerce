@@ -1,0 +1,35 @@
+{% extends 'header.html'%}
+{% block content %}
+{% load static%}
+        <title>Login</title>
+        <div class="topmsg">
+            {% if msg %}    
+            <i class="fa fa-bell" id="msgbox"> &nbsp;{{msg}}</i>        
+            {% endif%}
+        </div>
+        <div class="frmtitle"></div>
+        <div class="frmtitle"><h2 class="animated_h2"><img src="{% static 'img/logo.png'%}">User Login</h2></div>
+        <div class="signcontainer">
+            <form name="login" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {% if msg1 %}
+                <h4>
+                    Your Account is Inactive <a href="{% url 'enter_email' %}">Click Here To Activate</a><br><br>
+                </h4>
+                {% endif%}             
+                <input type="radio" name="usertype" value="user" id="user" class="usertype" checked><label for="user" id="loginradio"><i class="fa fa-user-circle" aria-hidden="true" id="ico"></i>
+                <span id="logspan">User</span></label>
+                <input type="radio" name="usertype" value="seller" id="seller" class="usertype"><label for="seller" id="loginradio"><i class="fa fa-user-circle" aria-hidden="true" id="ico"></i>
+                <span id="logspan">Seller</span></label><br>
+                <hr class="hr-8">
+                <input type="email" class="signinput" name="email" placeholder="Email" required='true'><span></span><br>    
+                <input type="password" name="password"class="signinput" id="password" placeholder="Enter Password" required='true'>
+                <span id="eye" onclick="signshow()" ></span> <span id="validtrue"></span><br> 
+                <a  class="link1" href="{% url 'forgotpassword' %}">Forgot Password?</a>  <br> 
+                <button class="signsubmit" type="submit" name="submit" value="SUBMIT" >Login</button><br>
+                <hr class="hr-8">
+                <a class="link1" href="{% url 'signup' %}">Create a New Account?</a>            
+            </form>            
+        </div>   
+
+{% endblock %}

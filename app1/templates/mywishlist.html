@@ -1,0 +1,53 @@
+{% extends 'header.html'%}
+{% block content %}
+{% load static %}
+    <title>Wishlist</title>
+    <div class="topmsg">
+        {% if msg %}    
+        <i class="fa fa-bell" id="msgbox"> &nbsp;{{msg}}</i>        
+        {% endif%}
+    </div>
+    <!-- --------------------------------------------- -->
+    <div class="card mt-3 p_list" style="width: 60%;">
+        <div class="card-header">
+            <i class="far fa-heart"></i>&nbsp;
+          My Wishlist ({{request.session.wishlist_len}})
+        </div>
+        <div class="card-body" style="margin-left: auto; margin-right: auto;">
+            {% for s in mywishlist %}
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{s.product.product_image.url}}" class="card-img" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{s.product.product_name}}</h5>
+                      <p class="card-text">{{s.product.product_price}}/-</p>
+                      <p class="card-text">{{s.product.product_desc}}</p>
+                      <a href="{% url 'add_to_cart' pk=s.product.pk %}" class="btn btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;MOVE TO CART</a>
+                      <a href="{% url 'remove_from_wishlist' pk=s.product.pk %}" class="btn btn-primary"><i class="far fa-trash-alt"></i> &nbsp;&nbsp;REMOVE</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+                 <div class="not_found">
+                     <img src="{% static 'img/empty.png'%}"><br>
+                    Your Wishlist is empty. Go to add some products to your Wishlist.     
+                 </div>
+              {% endfor %}
+
+        </div>
+      </div>
+
+
+
+
+
+
+    <!-- --------------------------------------------- -->
+
+
+    
+{% endblock %}

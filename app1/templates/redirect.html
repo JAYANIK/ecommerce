@@ -1,0 +1,38 @@
+{% extends 'header.html'%}
+{% block content %} 
+<html>
+    <head>
+        <title>Merchant Check Out Page</title>
+    </head>
+    <body style="margin:0; padding:0;">
+        <center><h1 style="margin-top: 150px; color:darkgreen ;">Please do not refresh this page...</h1></center>
+        <center>
+
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+        </center>
+        <form method="post" action="https://securegw-stage.paytm.in/order/process/" name="f1">
+            <table>
+                <tbody>
+                    <input type="hidden" name="MID" value="{{ MID }}">
+                    <input type="hidden" name="WEBSITE" value="{{ WEBSITE }}">
+                    <input type="hidden" name="ORDER_ID" value="{{ ORDER_ID }}">
+                    <input type="hidden" name="CUST_ID" value="{{ CUST_ID }}">
+                    <input type="hidden" name="INDUSTRY_TYPE_ID" value="{{ INDUSTRY_TYPE_ID }}">
+                    <input type="hidden" name="CHANNEL_ID" value="{{ CHANNEL_ID }}">
+                    <input type="hidden" name="TXN_AMOUNT" value="{{ TXN_AMOUNT }}">
+                    <input type="hidden" name="CALLBACK_URL" value="{{ CALLBACK_URL }}">
+                    <input type="hidden" name="CHECKSUMHASH" value="{{ CHECKSUMHASH }}">
+                </tbody>
+            </table>
+        <script type="text/javascript">
+            document.f1.submit();
+        </script>
+        </form>
+    </body>
+</html>
+
+  
+    
+{% endblock %}

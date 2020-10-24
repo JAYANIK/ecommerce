@@ -1,0 +1,21 @@
+{% extends 'seller_header.html'%}
+{% block content %}
+        <title>Edit Product</title>
+        <div class="frmtitle"><h2 class="animated_h2">Edit Product</h2></div>
+        <div class="signcontainer">
+            <form name="add_product" method="POST" action="{% url 'edit_product' pk=product.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if msg %}
+                <h4 style="padding: 0px;margin: 0px;">{{msg}}</h4>
+                {% endif%}               
+                <input type="text" class="signinput" name="product_name" id="fname" value="{{product.product_name}}" required='true' >
+                <br>
+                <input type="text" class="signinput" name="product_price" value="{{product.product_price}}" required='true'><span></span><br>
+                <textarea class="signinput" rows="5" cols="40"  name="product_desc">{{product.product_desc}}</textarea><br>
+                <label>Current Image:</label> <img src="{{product.product_image.url}}" height="100px" width="100px">
+                <input type="file" class="signinput" name="product_image" id="image" ><br>                
+                <input class="signsubmit" type="submit" name="submit" value="Update Product">
+            </form>            
+        </div>
+
+{% endblock %}

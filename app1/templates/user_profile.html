@@ -1,0 +1,54 @@
+{% extends 'header.html'%}
+{% block content %}  
+        <title>Profile</title>  
+        <div class="topmsg">
+            {% if msg %}    
+            <i class="fas fa-check-circle" id="msgbox"> &nbsp;{{msg}}</i>        
+            {% endif%}
+        </div>
+        <table class="profile_box">
+            
+            <tr>
+                <td td colspan="2" class="profile_back">                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" >
+                    <form name="update_pic" method="POST" action="{% url 'update_pic'%}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="image">
+                                <input type="hidden" name="email" value="{{request.session.email}}">
+                                <input type="file" name="image" id="image" style="display:none;">      
+                                <img src="{{image}}" class="profile_card" title="Click on Image For Change"  >                                
+                        </label>
+
+
+                    </form>
+                    <script type="text/javascript">
+                        jQuery(function() {
+                          jQuery('#image').change(function() {
+                              this.form.submit();
+                          });
+                      });
+                      </script>   
+            
+                </td>
+            </tr>
+            
+            <tr>              
+                <td colspan="2"><h3 class="profile_title">{{request.session.fname}} {{request.session.lname}} </h3>
+                <hr style="border-top: rgb(14, 199, 14) 3px solid; ">
+                </td>                          
+            </tr>            
+            <tr>
+                <td colspan="2" style="text-align: left;"><i class="fas fa-user"> <h4 class="profile_info">Name : {{request.session.fname}} {{request.session.lname}}</h4></i> </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left;"> <i class="fas fa-envelope"><h4 class="profile_info">Email : {{email}}</h4></i></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left;"><i class="fas fa-mobile-alt"><h4 class="profile_info"> Mobile : {{mobile}}</h4></i> </td>
+            </tr>
+        </table>
+
+{% endblock %}

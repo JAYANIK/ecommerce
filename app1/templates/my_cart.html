@@ -1,0 +1,112 @@
+{% extends 'header.html'%}
+{% block content %}
+{% load static %}
+    <title>Cart</title>
+    <div class="topmsg">
+        {% if msg %}    
+        <i class="fa fa-bell" id="msgbox"> &nbsp;{{msg}}</i>        
+        {% endif%}
+    </div>
+
+    
+    <table class="cart_box" align="center" >
+      <tr>
+        <td>
+          <div class="card mt-3 p_list">
+            <div class="card-header">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;
+              My Cart ({{request.session.mycart_len}})
+            </div>
+            <div class="card-body" style="margin-left: auto; margin-right: auto;">
+                {% for s in mycart %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                      <div class="row no-gutters">
+                          <div class="col-md-3" class="img_box">
+                            <img src="{{s.product.product_image.url}}" class="card-img" alt="...">
+                            
+                          </div>
+                        
+                        
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title">{{s.product.product_name}}</h5>
+                              <p class="card-text">{{s.product.product_price}}/-</p>
+                              <p class="card-text">{{s.product.product_desc}}</p>
+                              
+                                <!-- -------------------------------------------- -->
+                                <form name="update_q" method="POST" action="{% url 'update_q' pk=s.product.pk%}">
+                                  {% csrf_token %}
+                              <div class="quantity buttons_added">
+                                <input type="button" value="-" class="minus"><input onchange="this.form.submit()" type="number" id="quantity" step="1" min="1" max="" name="quantity" value="{{s.quantity}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus"><br><br>
+                                </form>
+                                <!-- <script type="text/javascript">
+                                  jQuery(function() {
+                                    jQuery('update_q').onchange(function() {
+                                        this.form.submit();
+                                    });
+                                });
+                                </script>    -->
+                            <!-- ---------------------------------------------------- -->
+                            
+                              <a href="{% url 'add_to_wishlist' pk=s.product.pk %}" class="btn btn-primary"><i class="far fa-heart"></i>&nbsp;&nbsp;MOVE TO WISHLIST</a>
+                              <a href="{% url 'remove_from_cart' pk=s.product.pk %}" class="btn btn-primary"><i class="far fa-trash-alt"></i> &nbsp;&nbsp;REMOVE</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% empty %}
+                     <div class="not_found">
+                        <img src="{% static 'img/empty.png'%}"><br>
+                        Your shopping cart is empty. Go to add some products to your cart.    
+                     </div>
+                  {% endfor %}
+                </div>
+           
+          
+          </div>
+    
+        </div>
+        </td>
+        {% if mycart %}
+        <td style="vertical-align: top; padding-top: 30px;">
+          <div class="card totalbox" style="width: 18rem; margin: auto;" >
+            <div class="card-body">
+              <h5 class="card-title">PRICE DETAILS</h5> <hr style="margin: auto; margin-top: 10px;">
+              
+              <table class="total_tbl">
+                <tr>
+                  <td class="tdname"><h6 class="card-subtitle mb-2 mt-2 text-muted">Price ({{request.session.mycart_len}} items)</h6></td>
+                  <td class="tdvalue">₹{{total_amount}}</td>
+                </tr>
+                <tr style="border-bottom: 1px dashed rgb(177, 168, 168);">
+                  <td class="tdname"><h6 class="card-subtitle mb-2 mt-2 text-muted">Delivery Charges</h6></td>
+                  <td class="tdvalue">₹0</td>
+                </tr>
+               
+                <tr>
+                  <td class="tdname"><h5 class="card-subtitle mb-2 mt-2 ">Total Amount</h5></td>
+                  <td class="tdvalue"><h4>₹{{total_amount}}</h4></td>
+                </tr>
+              </table>
+              
+            </div>
+             <!-- -------price box----------- -->
+          
+            
+            
+             <hr>
+             <form name="place_order" method="POST" action="{% url 'pay' %}">
+               {% csrf_token %}
+              <input type="hidden" name="amount" value="{{total_amount}}">
+              <input  type="submit" class="btn btn-primary float-right" value="PLACE ORDER">
+             </form>
+             
+            {% endif %}
+        </td>
+      </tr>
+    </table>
+    
+
+
+{% endblock %}

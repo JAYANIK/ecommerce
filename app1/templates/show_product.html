@@ -1,0 +1,30 @@
+{% extends 'header.html'%}
+{% block content %}
+    <title>Show Product page</title>
+    <div class="category_name">
+        <h6><i class="fab fa-product-hunt"></i> Product Category : All</h6>
+        
+    </div>
+    
+    <div class="row">
+        {% for s in products %}
+       <div id="box" class="col-sm-3">
+           <div class="container">
+                 <div class="card mt-2 pt-4" style="width:250px">                    
+                   <img class="card-img-top" src="{{s.product_image.url}}" alt="Product Image" width=250px height=250px>
+                       <div class="card-body">
+                             <h4 class="card-title">{{s.product_name}}</h4>
+                             <p class="card-text">{{s.product_price}}/-</p>
+                             <a href="{% url 'user_product_details' pk=s.pk %}" id="morebtn" >More Detail</a>
+                       </div>
+                 </div>	  
+           </div>
+       </div> 
+       {% empty %}
+        <div class="not_found"><i class="fa fa-exclamation-circle"><br>Product Not Found</i>      
+        </div>
+       {% endfor %}
+   </div>
+
+
+{% endblock %}

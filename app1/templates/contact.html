@@ -1,0 +1,63 @@
+{% extends 'header.html'%}
+{% block content %}
+{% load static %}
+    <title>Contact Us Form</title>
+    <form name="contact" method="POST" action="{% url 'contact' %}">
+        {% csrf_token %}
+        <table class="infotbl">
+            <tr>
+                <td colspan="2" align="center">
+                    <span class="round">
+                        <h2> Contact Us</h2>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td  align="center">
+                    {% if msg %}
+                        <b>{{msg}}</b>
+                    {% endif%}
+                </td>
+            </tr>
+            <tr>               
+                <td><input type="text" class="contactinput" name="cname" placeholder="Enter Name" required></td>            
+            </tr>
+            <tr>               
+                <td><input type="email" class="contactinput" name="email" placeholder="Email" required></td>           
+            </tr>
+            <tr>                
+                <td><input type="text" class="contactinput" name="mobile" placeholder="Mobile" required></td>            
+            </tr>
+            <tr>                
+                <td><textarea name="feedback" placeholder="Describe Here..." class="feedbk" rows="4" cols="40" required></textarea></td>
+            </tr>
+            <tr>
+                <td  align="center">
+                    <button class="submitbtn" type="submit" name="submit" value="SUBMIT" >SUBMIT</button>
+                </td>
+            </tr>
+        </table>
+        <hr>
+    
+        <center><h2>User Comments</h2></center>
+        {% for i in contacts %}        
+        <div id="jayanik">
+            <table class="commentstbl">
+                <tr>
+                    <td rowspan="2"><img src="{% static 'img/user.png'%}"></td>
+                    <td class="nameclass"> <h4>{{i.name}}</h4></td>
+                </tr>
+                <tr>
+                    <td class="dateclass"><h5>Date time</h5></td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td class="feedclass">{{i.feedback}}</td>
+                </tr>
+                <hr style="margin-top: 5px; margin-bottom: 0px;">
+            </table>          
+        </div>        
+        {% endfor %}
+        </table>
+    </form>
+{% endblock %}

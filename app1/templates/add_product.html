@@ -1,0 +1,26 @@
+{% extends 'seller_header.html'%}
+{% block content %}
+        <title>Add New Product</title>
+        <div class="frmtitle"><h2 class="animated_h2">Add New Product</h2></div>
+        <div class="signcontainer">
+            <form name="add_product" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if msg %}
+                <h4 style="padding: 0px;margin: 0px;">{{msg}}</h4>
+                {% endif%}               
+                <select class="signinput" name="product_category" title="select"> 
+                    <option>Select Product Type</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="mobile">Mobile</option>
+                </select><br>
+                <input type="text" class="signinput" name="product_name" id="fname" placeholder="Product Name" required='true' >
+                <br>
+                <input type="text" class="signinput" name="product_price" placeholder="Product Price" required='true'><span></span><br>
+                <textarea class="signinput" rows="5" cols="40" placeholder="Description" name="product_desc"></textarea><br>
+                <input type="file" class="signinput" name="product_image" id="image" title="Select Image" required><br>                
+                <input class="signsubmit" type="submit" name="submit" value="Add Product">
+            </form>            
+        </div>
+
+{% endblock %}
