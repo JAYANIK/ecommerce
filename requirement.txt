@@ -1,0 +1,6 @@
+Django==2.2
+Pillow==7.2.0
+pycryptodome==3.9.8
+pycryptodomex==3.9.8
+pytz==2020.1
+sqlparse==0.3.1
